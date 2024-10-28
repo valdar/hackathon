@@ -1,2 +1,2 @@
-# workshop
+# Camel
 Camel F2F
