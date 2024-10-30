@@ -49,7 +49,7 @@ The goal of this lab is to create a simple Camel route using the commands availa
 
 ![Route restart](images/route-restart.png)
 
-11. Let's replace the `log` EIP with a `log` component. Right click on the `log` EIP, and select `Replace` in the context menu.
+11. Let's replace the `log` EIP with a `log` component. Right-click on the `log` EIP, and select `Replace` in the context menu.
 
 ![Context menu](images/context-menu.png)
 
@@ -69,7 +69,7 @@ The goal of this lab is to create a simple Camel route using the commands availa
 
 ![Empty headers](images/empty-headers.png)
 
-16. Let's add a header to the `Exchange`. Right click on the `log` component to open the context menu and select `Prepend` to add a new EIP before the `log` component.
+16. Let's add a header to the `Exchange`. Right-click on the `log` component to open the context menu and select `Prepend` to add a new EIP before the `log` component.
 
 ![Prepend](images/prepend-step.png)
 
