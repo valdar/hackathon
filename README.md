@@ -9,3 +9,4 @@ Each section has their own folder with the code and the instructions.
 
 ## Sections
 - [Lab 1: Create a Camel Route](lab1/README.md)
+- [Lab 2: Perform a data transformation](lab2/README.md)
