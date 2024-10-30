@@ -8,17 +8,17 @@ We're gonna start from [an existing Apache Camel Route (CreateOrder-template)](C
 
 Here's an example of the [`Account`](xsd/Account.xsd) object:
 ```xml
-    <Account AccountId="acc001">
+    <kaoto:Account AccountId="acc001" xmlns:kaoto="kaoto.datamapper.test">
         <Name>Jane Doe</Name>
         <Address>Purkyňova 111, 612 00</Address>
         <City>Brno-Medlánky</City>
         <Country>Česká republika</Country>
-    </Account>
+    </kaoto:Account>
 ```
 
 And the [`Cart`](xsd/Cart.xsd) object:
 ```xml
-    <Cart>
+    <kaoto:Cart xmlns:kaoto="kaoto.datamapper.test">
         <Item>
             <Title>Shadowman T-shirts</Title>
             <Note>XL</Note>
@@ -31,31 +31,33 @@ And the [`Cart`](xsd/Cart.xsd) object:
             <Quantity>5</Quantity>
             <Price>24.50</Price>
         </Item>
-    </Cart>
+    </kaoto:Cart>
 ```
 
 The desired output is the [`ShipOrder`](xsd/ShipOrder.xsd) object:
 ```xml
-<ShipOrder OrderId="2">
-    <OrderPerson>Jane Doe</OrderPerson>
-    <ShipTo>
-        <Name>Jane Doe</Name>
-        <Address>Purkyňova 111, 612 00</Address>
-        <City>Brno-Medlánky</City>
-        <Country>Česká republika</Country>
-    </ShipTo>
-    <Item>
-        <Title>Shadowman T-shirts</Title>
-        <Note>XL</Note>
-        <Quantity>10</Quantity>
-        <Price>25.00</Price>
-    </Item>
-    <Item>
-        <Title>Kaoto T-shirts</Title>
-        <Note>L</Note>
-        <Quantity>5</Quantity>
-        <Price>24.50</Price>
-    </Item>
+<ShipOrder xmlns="io.kaoto.datamapper.poc.test"
+           xmlns:ns0="kaoto.datamapper.test"
+           OrderId="ORDER-acc001-nnnn">
+   <OrderPerson>acc001:Jane Doe</OrderPerson>
+   <ShipTo xmlns="">
+      <Name>Jane Doe</Name>
+      <Address>Purkyňova 111, 612 00</Address>
+      <City>Brno-Medlánky</City>
+      <Country>Česká republika</Country>
+   </ShipTo>
+   <Item xmlns="">
+      <Title>Shadowman T-shirts</Title>
+      <Note>XL</Note>
+      <Quantity>10</Quantity>
+      <Price>25.00</Price>
+   </Item>
+   <Item xmlns="">
+      <Title>Kaoto T-shirts</Title>
+      <Note>L</Note>
+      <Quantity>5</Quantity>
+      <Price>24.50</Price>
+   </Item>
 </ShipOrder>
 ```
 
