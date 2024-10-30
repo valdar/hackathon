@@ -4,6 +4,5 @@
     "redhat.vscode-yaml",
     "redhat.vscode-apache-camel",
     "redhat.vscode-debug-adapter-apache-camel",
-    "redhat.vscode-camelk"
   ]
 }
