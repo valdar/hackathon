@@ -2,7 +2,7 @@
 
 ## Lab 1: Create a Camel Route
 
-The goal of this lab is to create a simple Camel route using the commands available in VS Code, provided by the Extension pack for Apache Camel by Red Hat.
+The goal of this lab is to create a simple Camel route in VS Code leveraging the Extension pack for Apache Camel by Red Hat.
 
 ### Prerequisites
 
@@ -49,11 +49,11 @@ The goal of this lab is to create a simple Camel route using the commands availa
 
 ![Route restart](images/route-restart.png)
 
-11. Let's replace the `log` EIP with a `log` component. Right-click on the `log` EIP, and select `Replace` in the context menu.
+11. Let's replace the `log` EIP (Enterprise Integration Pattern) with a `log` component. Right-click on the `log` EIP, and select `Replace` in the context menu.
 
 ![Context menu](images/context-menu.png)
 
-12. Write `log` in the search box and select the `Log` component.
+12. Write `log` in the search box and select the `Log Data` component.
 
 ![Select log component](images/log-component.png)
 
@@ -81,7 +81,7 @@ The goal of this lab is to create a simple Camel route using the commands availa
 
 ![Missing required properties](images/missing-required-properties.png)
 
-19. In the `Expression` field, type `${messageHistory}`.
+19. Click on `All`, then in the `Expression` field, type `${messageHistory}`. Note that the list of available variables depends on the chosen language, in this case with Simple expression you can look at [Camel documentation for Simple language](https://camel.apache.org/components/4.8.x/languages/simple-language.html).
 
 ![Expression field](images/set-header-expression-field.png)
 
@@ -93,4 +93,4 @@ The goal of this lab is to create a simple Camel route using the commands availa
 
 ![Headers map](images/populated-headers-map.png)
 
-22. Congratulations! You have created a Camel route using the commands available in VS Code.
+22. Congratulations! You have developed a simple Camel route in VS Code.
