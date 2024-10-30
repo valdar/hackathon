@@ -18,6 +18,11 @@
             uri: direct
             parameters:
               name: GetCart
+        - to:
+            id: to-4208
+            uri: direct
+            parameters:
+              name: GetOrderSequence
         - log:
             id: log-1837
             message: ${body}
@@ -34,12 +39,12 @@
             expression:
               simple:
                 expression: |-
-                  <Account AccountId="acc001">
+                  <kaoto:Account AccountId="acc001" xmlns:kaoto="kaoto.datamapper.test">
                     <Name>Tomo</Name>
                     <Address>314 Littleton Rd</Address>
                     <City>Westford</City>
                     <Country>US</Country>
-                  </Account>
+                  </kaoto:Account>
             name: account
         - convertVariableTo:
             id: convertVariableTo-3000
@@ -58,7 +63,7 @@
             expression:
               simple:
                 expression: |-
-                  <Cart>
+                  <kaoto:Cart xmlns:kaoto="kaoto.datamapper.test">
                     <Item>
                       <Title>Apple</Title>
                       <Note>Fuji</Note>
@@ -71,7 +76,21 @@
                       <Quantity>5</Quantity>
                       <Price>16.05</Price>
                     </Item>
-                  </Cart>
+                  </kaoto:Cart>
         - convertBodyTo:
             id: convertBodyTo-1207
             type: org.w3c.dom.Document
+- route:
+    id: GetOrderSequence
+    from:
+      id: from-4065
+      uri: direct
+      parameters:
+        name: GetOrderSequence
+      steps:
+        - setVariable:
+            id: setVariable-2655
+            expression:
+              simple:
+                expression: nnnn
+            name: orderSequence
