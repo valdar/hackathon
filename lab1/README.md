@@ -5,8 +5,10 @@
 The goal of this lab is to create a simple Camel route using the commands available in VS Code, provided by the Extension pack for Apache Camel by Red Hat.
 
 ### Prerequisites
-* Install [the Extension pack for Apache Camel by Red Hat](https://marketplace.visualstudio.com/items?itemName=redhat.apache-camel-extension-pack) in VS Code.
-* Install the Camel CLI (JBang) following the instructions [here](https://camel.apache.org/manual/camel-jbang.html#_installation).
+
+* Install [VS code](https://code.visualstudio.com/docs/setup/setup-overview).
+* Install the [Extension pack for Apache Camel by Red Hat](https://marketplace.visualstudio.com/items?itemName=redhat.apache-camel-extension-pack) in VS Code.
+* Install [JBang CLI](https://www.jbang.dev/documentation/guide/latest/installation.html).
 
 ### Instructions
 1. Open the command palette by pressing `F1` or `Ctrl + Shift + P` (Windows/Linux) or `Cmd + Shift + P` (Mac).
