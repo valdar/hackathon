@@ -42,5 +42,8 @@ buildNumber.properties
 
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
-.camel-jbang
 **/tmp
+
+# Camel JBang
+.camel-jbang
+.camel-jbang-run
