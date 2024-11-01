@@ -4,7 +4,9 @@
 
 The goal of this lab is to perform a data transformation. We will use the Kaoto Data mapper component to showcase how we can easily achieve it using an UI and leveraging the Apache Camel functionality.
 
-We're gonna start from [an existing Apache Camel Route (CreateOrder-template)](CreateOrder-template.camel.yaml) that simulates fetching information from external systems, namely [`Account`](xsd/Account.xsd) and [`Cart`](xsd/Cart.xsd), and then transforming and combining them into a new [`ShipOrder`](xsd/ShipOrder.xsd) format. For this purpose, appropriate XML schemas are provided in the `xsd` folder.
+We're gonna start from [an existing Apache Camel Route (CreateOrder-template)](CreateOrder-template.camel.yaml) that simulates fetching information from external systems, namely [`Account`](xsd/Account.xsd) from `GetAccount` direct route and [`Cart`](xsd/Cart.xsd) from `GetCart` direct route, as well as an order sequence number fetching from `GetOrderSequence` direct route. And then transforming and combining them into a new [`ShipOrder`](xsd/ShipOrder.xsd) format. For this purpose, appropriate XML schemas are provided in the `xsd` folder.
+
+ While `Cart` is stored in Camel Message Body, `Account` and order sequence number are stored in Camel Variables. The variable names are `account` and `orderSequence`. In the DataMapper step we will configure later, These Camel Variables are consumed as `Parameters`.
 
 Here's an example of the [`Account`](xsd/Account.xsd) object:
 ```xml
@@ -74,24 +76,30 @@ The desired output is the [`ShipOrder`](xsd/ShipOrder.xsd) object:
 
 2. Open CreateOrder-template.yaml file
 
-3. Append a Kaoto Data Mapper step between the last direct and the log
+3. Run the Camel route before making a change and see `Cart` XML is printed in the terminal
+   * Click quick editor action `Run with JBang ...` button
+   ![Click Run with JBang button](images/00.01.click-run.png)
+   * Notice the `Cart` XML is printed in the terminal. Without adding a DataMapper step, The Camel Message Body delivers `Cart` XML alone.
+   ![Cart XML is printed](images/00.02.run-route-before-change.png)
+
+4. Append a Kaoto Data Mapper step between the last direct and the log
    * Right-click on the last direct
    * Select `Append`
    ![Append a DataMapper step](images/01.append-step.png)
-   * Type `datamapper` in search field and pick the `kaoto data mapper`
+   * Type `datamapper` in search field and pick the `Kaoto data mapper`
    ![Select a DataMapper step in the catalog](images/02.select-datamapper-in-catalog.png)
    * Notice the added Kaoto data mapper step
    ![Click added DataMapper step](images/03.click-datamapper-step.png)
 
-4. Select the Kaoto data mapper step to open the Configuration panel
+5. Select the Kaoto data mapper step to open the Configuration panel
 
-5. Click `Configure` button in the config panel
+6. Click `Configure` button in the config panel
    ![Click DataMapper configure button](images/04.click-datamapper-configure-button.png)
 
-6. Notice the Data mapper interface
+7. Notice the Data mapper interface
    ![DataMapper canvas](images/05.datamapper-canvas.png)
 
-7. Attach schema for Target body
+8. Attach schema for Target body
    * In Target part (at the right), click on the button to `Attach a schema`
    ![Click "Attach a schema" button for Target Body Document](images/06.click-attach-target-body-document-schema.png)
    * Select `xsd/ShipOrder.xsd`
@@ -100,7 +108,7 @@ The desired output is the [`ShipOrder`](xsd/ShipOrder.xsd) object:
    ![ShipOrder schema is attached to the Target Body Document](images/08.ShipOrder-attached-to-target-body.png)
 
 
-8. Attach schema for source body
+9. Attach schema for source body
    * In Source part (at the left), click on the button to `Attach a schema`
    ![Click "Attach a schema" button for Source Body Document](images/09.click-attach-source-body-document-schema.png)
    * Select `xsd/Card.xsd`
@@ -108,14 +116,14 @@ The desired output is the [`ShipOrder`](xsd/ShipOrder.xsd) object:
    * Notice the schema displayed as a Tree
    ![Cart schema is attached to the Source Body Document](images/11.Cart-attached-to-source-body.png)
 
-9. Add `account` parameter
+10. Add `account` parameter to consume `Account` XML stored in the `account` Camel Variable
    * In Source part, click on the + icon to add a parameter
    ![Click "Add a parameter" button](images/12.click-add-parameter-button.png)
    * Provide parameter name `account`
    ![Add a parameter "account"](images/13.add-parameter-account.png)
    ![Parameter "account" is added](images/14.parameter-account-added.png)
 
-10. Attach schema to the `account` parameter
+11. Attach schema to the `account` parameter
    * Click `attach a schema` button next to the `account` parameter
    ![Click "Attach a schema" button for the parameter "account"](images/15.click-attach-param-account-schema.png)
    * Select `xsd/Account.xsd`
@@ -123,20 +131,20 @@ The desired output is the [`ShipOrder`](xsd/ShipOrder.xsd) object:
    * Notice the schema displayed as a Tree
    ![Account schema is attached to the parameter "account"](images/17.Account-attached-to-param-account.png)
 
-11. Add `orderSequence` parameter
+12. Add `orderSequence` parameter to consume an order sequence number stored in the `orderSequence` Camel Variable
    * In Source part, click on the + icon to add a parameter
    ![Click "Add a parameter" button](images/12.click-add-parameter-button.png)
    * Provide parameter name `orderSequence`
    ![Add a parameter "orderSequence"](images/19.add-parameter-orderSequence.png)
    ![Parameter "orderSequence" added](images/20.parameter-orderSequence-added.png)
 
-12. Drag `/Account/Name` property of account parameter and Drop to Target `/ShipOrder/ShipTo/Name`
+13. Drag `/Account/Name` property of account parameter and Drop to Target `/ShipOrder/ShipTo/Name`
    ![Drag "/Account/Name" property of account parameter and Drop to Target "/ShipOrder/ShipTo/Name" ](images/21.dnd-name.png)
 
-13. Repeat Drag and Drop for `Address`, `City` and `Country`
+14. Repeat Drag and Drop for `Address`, `City` and `Country`
    ![Repeat Drag and Drop for "Address", "City" and "Country" ](images/22.repeat-dnd-address-city-country.png)
 
-14. Configure OrderPerson by concatenating Name and AccountId
+15. Configure OrderPerson by concatenating Name and AccountId
    * Drag `/Account/@AccountId` of account parameter and Drop to Target `/ShipOrder/OrderPerson`
    ![Drag "/Account/@AccountId" of account parameter and Drop to Target "/ShipOrder/OrderPerson"](images/23.dnd-accountid-to-orderperson.png)
    * Drag `/Account/Name` of account parameter and Drop to Target `/ShipOrder/OrderPerson`
@@ -154,7 +162,7 @@ The desired output is the [`ShipOrder`](xsd/ShipOrder.xsd) object:
    * Close the XPath editor
    ![Close XPath Editor](images/30.xpath-editor-close.png)
 
-15. Configure OrderId by concatenating AccountId and orderSequence
+16. Configure OrderId by concatenating AccountId and orderSequence
    * Drag `/Account/@AccountId` of account parameter and Drop to Target `/ShipOrder/@OrderId`
    ![Drag "/Account/@AccountId" of account parameter and Drop to Target "/ShipOrder/@OrderId"](images/31.dnd-accountid-to-orderid.png)
    * Drag `orderSequence` parameter and Drop to Target `/ShipOrder/@OrderId`
@@ -167,13 +175,14 @@ The desired output is the [`ShipOrder`](xsd/ShipOrder.xsd) object:
    ![Drap "Concatenate" and Drop onto right text editor](images/35.xpath-editor-drop-concat-orderid.png)
    * The `concat()` function is applied in the XPath expression
    ![The "concat()" function is applied in the XPath expression](images/36.xpath-editor-concat-applied-orderid.png)
-   * Edit the XPath expression and add colon `ORDER-` as prefix
+   * Edit the XPath expression and add `ORDER-` as prefix
    ![Add "ORDER-" prefix as a string literal](images/37.xpath-editor-add-ORDER-prefix.png)
    * Edit the XPath expression and add dash `-` between the 2 fields
    ![Add "-" separator in between "AccountId" and "orderSequence"](images/38.xpath-editor-add-separator.png)
+   * Close the XPath editor
    ![Close XPath Editor](images/39.close-xpath-editor.png)
 
-16. Configure Item, elements of a list
+17. Configure Item, elements of a list
    * Click 3-dot context menu of Target `/ShipOrder/Item`
    ![Click 3-dot context menu of Target "/ShipOrder/Item"](images/40.click-context-menu-item.png)
    * Select `Wrap with for-each`
@@ -183,11 +192,14 @@ The desired output is the [`ShipOrder`](xsd/ShipOrder.xsd) object:
    * Drag and Drop all children of `Item`
    ![Drag and Drop all children of "Item"](images/43.dnd-item-children.png)
 
-17. Click `Design` tab to go back to Kaoto route editor
+18. Click `Design` tab to go back to Kaoto route editor
    ![Click "Design" tab and go back to the Kaoto Canvas](images/44.click-design-tab.png)
 
-18. Click quick editor action to `Run`
+19. Click quick editor action `Run with JBang ...` button to run the Camel route
+   ![Click Run with JBang](images/46.run-with-jbang.png)
 
-19. Check the output
+20. Check the output
+   * Notice the `ShipOrder` XML is successfully printed in the terminal
+   ![ShipOrder XML printed in the console](images/47.printed-ShipOrder-XML.png)
 
-20. Congratulations you configured by point and click a data transformation including direct mapping but also data transformation.
+21. Congratulations you configured by point and click a data transformation including direct mapping but also data transformation.
