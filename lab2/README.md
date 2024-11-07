@@ -67,7 +67,7 @@ The desired output is the [`ShipOrder`](xsd/ShipOrder.xsd) object:
 
 * Install [VS code](https://code.visualstudio.com/docs/setup/setup-overview).
 * Install the [Extension pack for Apache Camel by Red Hat](https://marketplace.visualstudio.com/items?itemName=redhat.apache-camel-extension-pack) in VS Code.
-* [Install the Kaoto editor extension provided in the `vsix` folder](https://code.visualstudio.com/docs/editor/extension-marketplace#_install-from-a-vsix).
+* [Install the Kaoto editor extension provided in the `vsix` folder](https://code.visualstudio.com/docs/editor/extension-marketplace#_install-from-a-vsix) (i.e. `code --install-extension vsix/vscode-kaoto-2024-camel-F2F-hackathon-001.vsix`).
 * Install [JBang CLI](https://www.jbang.dev/documentation/guide/latest/installation.html).
 
 ### Instructions
